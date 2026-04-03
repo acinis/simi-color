@@ -116,10 +116,11 @@ def color_distance(color1: Color, color2: Color) -> float:
 
 def color_similarity(color1: Color, color2: Color) -> int:
     """Compute percentage of similarity between two colors."""
+    MAX_DISTANCE = color_distance(Color(0, 0, 0), Color(255, 255, 255))
     distance: float = color_distance(color1, color2)
     # `difference` and `similarity` are in percents
     # `similarity` is simply an inverted percentage of `difference`
-    difference: int = round(distance / 441.672_955_930_063 * 100)
+    difference: int = round(distance / MAX_DISTANCE * 100)
     if difference > 100:
         difference = 100
     similarity = 100 - difference
