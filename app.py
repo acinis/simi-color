@@ -1,4 +1,4 @@
-version_info: tuple[int, int, int] = (0, 1, 0)
+version_info: tuple[int, int, int] = (1, 0, 0)
 __version__: str = ".".join(map(str, version_info))
 
 import sys
