@@ -32,9 +32,9 @@ jobs:
       - name: Smoke-test (run)
         id: smoke_test_run
         run: |
-          docker run simi-color:${{ env.BUILD_VERSION }} fa44dc e3aa54
+          docker run simi-color:${{ env.BUILD_VERSION }} fa44dc e3aa54 | tr -d '\n'
 
       - name: Smoke test (check)
         run: |
-          [[ "61" == "${{ steps.smoke_test_run.outputs.stdout //[$'\n']/ }}" ]] || exit 1
+          [[ "61" == "${{ steps.smoke_test_run.outputs.stdout }}" ]] || exit 1
 
