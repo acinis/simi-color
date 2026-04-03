@@ -22,15 +22,19 @@ jobs:
 
     steps:
       - name: Get app version
-        run: echo "BUILD_VERSION=$( date '+%Y%m%d' )b${{ env.GITHUB_RUN_NUMBER }}" >> $GITHUB_ENV
+        run: |
+          echo "BUILD_VERSION=$( date '+%Y%m%d' )b${{ env.GITHUB_RUN_NUMBER }}" >> $GITHUB_ENV
 
       - name: Build app image
-        run: docker build . -t simi-color:${{ env.BUILD_VERSION }}
+        run: |
+          docker build . -t simi-color:${{ env.BUILD_VERSION }}
 
       - name: Smoke-test (run)
         id: smoke_test_run
-        run: docker run simi-color:${{ env.BUILD_VERSION }} fa44dc e3aa54
+        run: |
+          docker run simi-color:${{ env.BUILD_VERSION }} fa44dc e3aa54
 
       - name: Smoke test (check)
-        run: [[ "61" == "${{ steps.smoke_test_run.outputs.stdout //[$'\n']/ }}" ]] || exit 1
+        run: |
+          [[ "61" == "${{ steps.smoke_test_run.outputs.stdout //[$'\n']/ }}" ]] || exit 1
 
