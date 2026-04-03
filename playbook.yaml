@@ -1,0 +1,23 @@
+- name: Build and run simi-color app
+  hosts: all
+  connection: local
+
+  vars:
+    app_args: "{{ colors | default('121,229,99 fe32d8') }}"
+
+  tasks:
+
+    - name: Build container
+      command: docker-compose build
+      args:
+        chdir: "{{ playbook_dir }}"
+
+    - name: Run app
+      command: "docker-compose run --rm app {{ app_args }}"
+      register: app_result
+      args:
+        chdir: "{{ playbook_dir }}"
+
+    - debug:
+        var: app_result.stdout
+

@@ -1,0 +1,6 @@
+name: simi-color
+
+services:
+  app:
+    build: .
+
